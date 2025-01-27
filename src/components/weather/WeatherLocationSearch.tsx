@@ -5,17 +5,24 @@ import { toast } from "sonner";
 
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { WeatherData } from "@/types/weather-api";
 import WeatherDisplay from "./LocationWeatherDisplay";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Units } from "@/types/misc";
 
 const WeatherLocationSearch = () => {
   const [weatherData, setWeatherData] = useState<WeatherData | null>(null);
+  const [units, setUnits] = useState<Units>("metric");
   const [search, setSearch] = useState("");
 
-  const handleSearch = async () => {
+  const handleSearch = async (unitSystem: Units) => {
+    if (!search) return;
+
     try {
-      const response = await fetch(`/api/weather?location=${search}`);
+      const response = await fetch(
+        `/api/weather?location=${search}&units=${unitSystem}`
+      );
       const data = await response.json();
 
       if (!data.id) {
@@ -28,17 +35,35 @@ const WeatherLocationSearch = () => {
     }
   };
 
+  const handleUnitChange = (systemUnit: Units) => {
+    setUnits(systemUnit);
+    if (weatherData) handleSearch(systemUnit);
+  };
+
   return (
     <Card className="flex-1">
       <CardHeader>
-        <CardTitle>Weather search</CardTitle>
+        <CardTitle>
+          <div className="flex justify-between items-center">
+            <span>Weather search</span>
+            <Tabs
+              value={units}
+              onValueChange={(value) => handleUnitChange(value as Units)}
+            >
+              <TabsList>
+                <TabsTrigger value="imperial">Imperial</TabsTrigger>
+                <TabsTrigger value="metric">Metric</TabsTrigger>
+              </TabsList>
+            </Tabs>
+          </div>
+        </CardTitle>
       </CardHeader>
       <CardContent>
         <div className="flex flex-col items-center justify-center py-16">
           <form
             onSubmit={(event) => {
               event.preventDefault();
-              handleSearch();
+              handleSearch(units);
             }}
             className="flex gap-2 mb-4"
             noValidate
@@ -55,7 +80,9 @@ const WeatherLocationSearch = () => {
               Search
             </Button>
           </form>
-          {weatherData && <WeatherDisplay weather={weatherData} />}
+          {weatherData && (
+            <WeatherDisplay weather={{ ...weatherData, units }} units={units} />
+          )}
         </div>
       </CardContent>
     </Card>

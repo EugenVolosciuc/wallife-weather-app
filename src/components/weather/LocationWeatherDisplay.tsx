@@ -15,13 +15,15 @@ import {
   Sun,
 } from "lucide-react";
 
-import type { WeatherData } from "../../types/weather-api";
+import type { WeatherDataWithUnits } from "../../types/weather-api";
 import { Card, CardContent } from "@/components/ui/card";
 import { useWeatherBookmarks } from "@/lib/hooks/useWeatherBookmarks";
 import { cn } from "@/lib/utils";
+import { Units } from "@/types/misc";
 
 type Props = {
-  weather: WeatherData;
+  weather: WeatherDataWithUnits;
+  units?: Units;
 };
 
 export const getWeatherIcon = (icon: string): LucideIcon => {
@@ -57,6 +59,8 @@ const WeatherDisplay: FC<Props> = ({ weather }) => {
     (bookmark) => bookmark.id === weather.id
   );
 
+  const unitSymbol = weather.units === "metric" ? "°C" : "°F";
+
   return (
     <Card className="bg-background relative min-w-56 group">
       <button
@@ -76,9 +80,13 @@ const WeatherDisplay: FC<Props> = ({ weather }) => {
       <CardContent className="text-sm !p-4">
         <div className="flex justify-between items-center">
           <div>
-            <p className="text-4xl">{Math.round(weather.main.temp)}°C</p>
+            <p className="text-4xl">
+              {Math.round(weather.main.temp)}
+              {unitSymbol}
+            </p>
             <p className="text-xs text-muted-foreground">
-              Feels like: {Math.round(weather.main.feels_like)}°C
+              Feels like: {Math.round(weather.main.feels_like)}
+              {unitSymbol}
             </p>
           </div>
           <WeatherIcon className="w-12 h-12" />
@@ -86,10 +94,12 @@ const WeatherDisplay: FC<Props> = ({ weather }) => {
         <div className="mt-2">
           <p className="space-x-2">
             <span className="text-xs">
-              H: {Math.round(weather.main.temp_max)}°C
+              H: {Math.round(weather.main.temp_max)}
+              {unitSymbol}
             </span>
             <span className="text-xs">
-              L: {Math.round(weather.main.temp_min)}°C
+              L: {Math.round(weather.main.temp_min)}
+              {unitSymbol}
             </span>
           </p>
         </div>

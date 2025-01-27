@@ -9,7 +9,7 @@ import { WeatherData } from "@/types/weather-api";
 import WeatherDisplay from "./LocationWeatherDisplay";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
-const WeatherSearch = () => {
+const WeatherLocationSearch = () => {
   const [weatherData, setWeatherData] = useState<WeatherData | null>(null);
   const [search, setSearch] = useState("");
 
@@ -52,11 +52,11 @@ const WeatherSearch = () => {
             />
             <Button type="submit">Search</Button>
           </form>
-          {weatherData && <WeatherDisplay weather={weatherData} canBookmark />}
+          {weatherData && <WeatherDisplay weather={weatherData} />}
         </div>
       </CardContent>
     </Card>
   );
 };
 
-export default WeatherSearch;
+export default WeatherLocationSearch;

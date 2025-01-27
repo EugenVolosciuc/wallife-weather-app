@@ -16,11 +16,12 @@ import {
 } from "lucide-react";
 
 import type { WeatherData } from "../../types/weather-api";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
+import { useWeatherBookmarks } from "@/lib/hooks/useWeatherBookmarks";
+import { cn } from "@/lib/utils";
 
 type Props = {
   weather: WeatherData;
-  canBookmark?: boolean;
 };
 
 export const getWeatherIcon = (icon: string): LucideIcon => {
@@ -48,22 +49,29 @@ export const getWeatherIcon = (icon: string): LucideIcon => {
   return iconMap[icon] || HelpCircle;
 };
 
-const WeatherDisplay: FC<Props> = ({ weather, canBookmark }) => {
+const WeatherDisplay: FC<Props> = ({ weather }) => {
+  const { bookmarks, addBookmark, removeBookmark } = useWeatherBookmarks();
   const WeatherIcon = getWeatherIcon(weather.weather[0].icon);
 
+  const locationBookmarked = bookmarks.find(
+    (bookmark) => bookmark.id === weather.id
+  );
+
   return (
-    <Card className="bg-background relative min-w-56">
-      {canBookmark && (
-        <div className="absolute h-8 w-8 -top-3 -right-3 rounded-full bg-background shadow-md flex items-center justify-center group cursor-pointer">
-          <Heart className="w-3/5 h-3/5 group-hover:text-red-500" />
-        </div>
-      )}
-      {/* <CardHeader className="pb-2">
-        <div className="flex items-center justify-between">
-          <CardTitle className="text-lg">{weather.name}</CardTitle>
-          <WeatherIcon />
-        </div>
-      </CardHeader> */}
+    <Card className="bg-background relative min-w-56 group">
+      <div
+        className="absolute h-8 w-8 -top-3 -right-3 rounded-full bg-background shadow-md flex items-center justify-center group cursor-pointer opacity-0 group-hover:opacity-100 transition-opacity"
+        onClick={() =>
+          locationBookmarked ? removeBookmark(weather.id) : addBookmark(weather)
+        }
+      >
+        <Heart
+          className={cn(
+            "w-3/5 h-3/5 group-hover:text-red-500",
+            locationBookmarked && "text-red-400"
+          )}
+        />
+      </div>
       <CardContent className="text-sm !p-4">
         <div className="flex justify-between items-center">
           <div>

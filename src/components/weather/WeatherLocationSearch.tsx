@@ -65,12 +65,12 @@ const WeatherLocationSearch = () => {
               event.preventDefault();
               handleSearch(units);
             }}
-            className="flex gap-2 mb-4"
+            className="flex flex-col md:flex-row w-full sm:w-auto max-w-64 sm:max-w-none gap-2 mb-4"
             noValidate
           >
             <Input
               data-testid="location-search-input"
-              className="w-56"
+              className="md:w-56"
               type="text"
               placeholder="Search for a city"
               value={search}

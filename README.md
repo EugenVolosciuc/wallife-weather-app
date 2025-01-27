@@ -1,36 +1,36 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Wallife Weather App
 
-## Getting Started
+> This is a simple weather app created as part of the Wallife collaboration process.
 
-First, run the development server:
+## Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- Check the current weather in a city
+- Bookmark your favourite cities
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Improvement potential
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- Update the weather data for bookmarked cities
+  - Currently, the bookmarked weather data is not updated as time passes and weather conditions change
+- API call caching
+  - This could be achieved by using a library such as react-query, which would cache the data for a specified period of time, or implement an in-memory caching mechanism manually
+- Toggle temperature between Celsius and Fahrenheit
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Technologies
 
-## Learn More
+- React
+- NextJS (App Router)
+- Tailwind CSS
+- shadcn/ui for fast prototyping
+- Cypress for end-to-end testing
 
-To learn more about Next.js, take a look at the following resources:
+## Local development
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Add a `.env` file with all required values
+  - [OPEN_WEATHER_API_KEY](https://openweathermap.org/)
+- Install dependencies - `pnpm i`
+- Run application - `pnpm dev`
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Tests
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Make sure you have the application running locally before running the Cypress tests.
+You can either run the tests one-by-one from the Cypress interface, opening it with the `pnpm cypress:open` command, or run them all in headless mode with `pnpm cypress:run`.

@@ -59,8 +59,9 @@ const WeatherDisplay: FC<Props> = ({ weather }) => {
 
   return (
     <Card className="bg-background relative min-w-56 group">
-      <div
-        className="absolute h-8 w-8 -top-3 -right-3 rounded-full bg-background shadow-md flex items-center justify-center group cursor-pointer opacity-0 group-hover:opacity-100 transition-opacity"
+      <button
+        data-testid="bookmark-btn"
+        className="absolute h-8 w-8 -top-3 -right-3 rounded-full bg-background shadow-md flex items-center justify-center group focus:opacity-100 cursor-pointer opacity-0 group-hover:opacity-100 transition-opacity"
         onClick={() =>
           locationBookmarked ? removeBookmark(weather.id) : addBookmark(weather)
         }
@@ -71,7 +72,7 @@ const WeatherDisplay: FC<Props> = ({ weather }) => {
             locationBookmarked && "text-red-400"
           )}
         />
-      </div>
+      </button>
       <CardContent className="text-sm !p-4">
         <div className="flex justify-between items-center">
           <div>

@@ -12,7 +12,7 @@ const BookmarkedLocationsContainer = () => {
       <CardHeader>
         <CardTitle>Bookmarked locations</CardTitle>
       </CardHeader>
-      <CardContent className="flex flex-wrap gap-4">
+      <CardContent className="flex flex-wrap gap-4" data-testid="bookmark-list">
         {bookmarks.map((weatherBookmark) => (
           <LocationWeatherDisplay
             key={"bookmark-" + weatherBookmark.id}

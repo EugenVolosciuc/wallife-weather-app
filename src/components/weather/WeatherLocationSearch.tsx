@@ -44,13 +44,16 @@ const WeatherLocationSearch = () => {
             noValidate
           >
             <Input
+              data-testid="location-search-input"
               className="w-56"
               type="text"
               placeholder="Search for a city"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
             />
-            <Button type="submit">Search</Button>
+            <Button data-testid="location-search-btn" type="submit">
+              Search
+            </Button>
           </form>
           {weatherData && <WeatherDisplay weather={weatherData} />}
         </div>

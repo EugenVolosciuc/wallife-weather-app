@@ -20,7 +20,7 @@ const WeatherBookmarksContext = createContext<{
   setBookmarks: Dispatch<SetStateAction<WeatherData[]>>;
 }>({ bookmarks: [], setBookmarks: () => null });
 
-export const WeatherBookmarksProvider: FC<PropsWithChildren<{}>> = ({
+export const WeatherBookmarksProvider: FC<PropsWithChildren<object>> = ({
   children,
 }) => {
   const [bookmarks, setBookmarks] = useState<WeatherData[]>([]);
@@ -35,14 +35,12 @@ export const WeatherBookmarksProvider: FC<PropsWithChildren<{}>> = ({
 export const useWeatherBookmarks = () => {
   const { bookmarks, setBookmarks } = useContext(WeatherBookmarksContext);
 
-  console.log("bookmarks in hook", bookmarks);
-
   useEffect(() => {
     const storedBookmarks = localStorage.getItem(LOCAL_STORAGE_KEY);
     if (storedBookmarks) {
       setBookmarks(JSON.parse(storedBookmarks));
     }
-  }, []);
+  }, [setBookmarks]);
 
   const addBookmark = (weatherData: WeatherData) => {
     if (bookmarks.some((bookmark) => bookmark.id === weatherData.id)) {

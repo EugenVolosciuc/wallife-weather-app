@@ -3,52 +3,46 @@
 @tailwind utilities;
 
 body {
-  font-family: Arial, Helvetica, sans-serif;
+  @apply font-sans;
 }
 
 @layer base {
   :root {
-    --background: 35 29% 95%;
-    --foreground: 35 5% 10%;
-    --card: 35 29% 95%;
-    --card-foreground: 35 5% 15%;
-    --popover: 35 29% 95%;
-    --popover-foreground: 35 95% 10%;
-    --primary: 35 85% 51%;
-    --primary-foreground: 0 0% 100%;
-    --secondary: 35 29% 90%;
-    --secondary-foreground: 0 0% 0%;
-    --muted: -3 29% 95%;
-    --muted-foreground: 35 5% 40%;
-    --accent: -3 29% 90%;
-    --accent-foreground: 35 5% 15%;
-    --destructive: 0 50% 50%;
-    --destructive-foreground: 35 5% 95%;
-    --border: 35 29% 82%;
-    --input: 35 29% 50%;
-    --ring: 35 85% 51%;
-    --radius: 0.5rem;
-  }
-  .dark {
-    --background: 35 29% 10%;
-    --foreground: 35 5% 95%;
-    --card: 35 29% 10%;
-    --card-foreground: 35 5% 95%;
-    --popover: 35 29% 5%;
-    --popover-foreground: 35 5% 95%;
-    --primary: 35 85% 51%;
-    --primary-foreground: 0 0% 100%;
-    --secondary: 35 29% 20%;
-    --secondary-foreground: 0 0% 100%;
-    --muted: -3 29% 25%;
-    --muted-foreground: 35 5% 65%;
-    --accent: -3 29% 25%;
-    --accent-foreground: 35 5% 95%;
-    --destructive: 0 50% 50%;
-    --destructive-foreground: 35 5% 95%;
-    --border: 35 29% 50%;
-    --input: 35 29% 50%;
-    --ring: 35 85% 51%;
+    /* Name: custom color palette
+       Author: Ilias Ism
+       URL: https://gradient.page */
+
+    /* CSS: .bg-gradient { background: var(--gradient) } */
+    --gradient: linear-gradient(to top left, #091e3a, #2f80ed, #2d9ee0);
+    --background: 228 98.65% 98.26%;
+    --foreground: 228 7.3% 0.52%;
+
+    --muted: 228 7.3% 91.3%;
+    --muted-foreground: 228 3.65% 41.3%;
+
+    --popover: 228 31.6% 91.3%;
+    --popover-foreground: 228 7.3% 0.65%;
+
+    --card: 228 31.6% 91.3%;
+    --card-foreground: 228 7.3% 0.65%;
+
+    --border: 228 12.3% 89.52%;
+    --input: 228 12.3% 89.52%;
+
+    --primary: 228 73% 13%;
+    --primary-foreground: 228 1.46% 91.3%;
+
+    --secondary: 228 3.65% 95.65%;
+    --secondary-foreground: 228 5.38% 11.3%;
+
+    --accent: 228 3.65% 95.65%;
+    --accent-foreground: 228 5.38% 11.3%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+
+    --ring: 228 73% 13%;
+
     --radius: 0.5rem;
   }
 }

@@ -6,6 +6,7 @@
 
 - Check the current weather in a city
 - Bookmark your favourite cities
+- Toggle temperature between Celsius and Fahrenheit
 
 ## Improvement potential
 
@@ -13,7 +14,6 @@
   - Currently, the bookmarked weather data is not updated as time passes and weather conditions change
 - API call caching
   - This could be achieved by using a library such as react-query, which would cache the data for a specified period of time, or implement an in-memory caching mechanism manually
-- Toggle temperature between Celsius and Fahrenheit
 
 ## Technologies
 

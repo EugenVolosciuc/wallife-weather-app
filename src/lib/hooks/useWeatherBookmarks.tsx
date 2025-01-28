@@ -11,19 +11,19 @@ import {
   useState,
 } from "react";
 
-import { WeatherDataWithUnits } from "@/types/weather-api";
+import { WeatherData } from "@/types/weather-api";
 
 const LOCAL_STORAGE_KEY = "weatherBookmarks";
 
 const WeatherBookmarksContext = createContext<{
-  bookmarks: WeatherDataWithUnits[];
-  setBookmarks: Dispatch<SetStateAction<WeatherDataWithUnits[]>>;
+  bookmarks: WeatherData[];
+  setBookmarks: Dispatch<SetStateAction<WeatherData[]>>;
 }>({ bookmarks: [], setBookmarks: () => null });
 
 export const WeatherBookmarksProvider: FC<PropsWithChildren<object>> = ({
   children,
 }) => {
-  const [bookmarks, setBookmarks] = useState<WeatherDataWithUnits[]>([]);
+  const [bookmarks, setBookmarks] = useState<WeatherData[]>([]);
 
   return (
     <WeatherBookmarksContext.Provider value={{ bookmarks, setBookmarks }}>
@@ -42,7 +42,7 @@ export const useWeatherBookmarks = () => {
     }
   }, [setBookmarks]);
 
-  const addBookmark = (weatherData: WeatherDataWithUnits) => {
+  const addBookmark = (weatherData: WeatherData) => {
     if (bookmarks.some((bookmark) => bookmark.id === weatherData.id)) {
       console.warn(
         `Weather data with id ${weatherData.id} is already bookmarked.`
@@ -55,7 +55,7 @@ export const useWeatherBookmarks = () => {
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(updatedBookmarks));
   };
 
-  const removeBookmark = (id: WeatherDataWithUnits["id"]) => {
+  const removeBookmark = (id: WeatherData["id"]) => {
     const updatedBookmarks = bookmarks.filter((bookmark) => bookmark.id !== id);
     setBookmarks(updatedBookmarks);
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(updatedBookmarks));

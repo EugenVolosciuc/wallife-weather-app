@@ -15,15 +15,16 @@ import {
   Sun,
 } from "lucide-react";
 
-import type { WeatherDataWithUnits } from "../../types/weather-api";
+import type { WeatherData } from "../../types/weather-api";
 import { Card, CardContent } from "@/components/ui/card";
 import { useWeatherBookmarks } from "@/lib/hooks/useWeatherBookmarks";
 import { cn } from "@/lib/utils";
-import { Units } from "@/types/misc";
+import { MeasurementSystem } from "@/types/misc";
+import { useMeasurementSystem } from "@/lib/hooks/useMeasurementSystem";
+import { celsiusToFahrenheit } from "@/lib/converters";
 
 type Props = {
-  weather: WeatherDataWithUnits;
-  units?: Units;
+  weather: WeatherData;
 };
 
 export const getWeatherIcon = (icon: string): LucideIcon => {
@@ -51,15 +52,19 @@ export const getWeatherIcon = (icon: string): LucideIcon => {
   return iconMap[icon] || HelpCircle;
 };
 
+const displayTemperature = (temp: number, systemUnit: MeasurementSystem) =>
+  systemUnit === "imperial"
+    ? Math.round(celsiusToFahrenheit(temp)) + "°F"
+    : Math.round(temp) + "°C";
+
 const WeatherDisplay: FC<Props> = ({ weather }) => {
   const { bookmarks, addBookmark, removeBookmark } = useWeatherBookmarks();
+  const { measurementSystem } = useMeasurementSystem();
   const WeatherIcon = getWeatherIcon(weather.weather[0].icon);
 
   const locationBookmarked = bookmarks.find(
     (bookmark) => bookmark.id === weather.id
   );
-
-  const unitSymbol = weather.units === "metric" ? "°C" : "°F";
 
   return (
     <Card className="bg-background relative min-w-56 group">
@@ -81,12 +86,11 @@ const WeatherDisplay: FC<Props> = ({ weather }) => {
         <div className="flex justify-between items-center">
           <div>
             <p className="text-4xl">
-              {Math.round(weather.main.temp)}
-              {unitSymbol}
+              {displayTemperature(weather.main.temp, measurementSystem)}
             </p>
             <p className="text-xs text-muted-foreground">
-              Feels like: {Math.round(weather.main.feels_like)}
-              {unitSymbol}
+              Feels like:{" "}
+              {displayTemperature(weather.main.feels_like, measurementSystem)}
             </p>
           </div>
           <WeatherIcon className="w-12 h-12" />
@@ -94,12 +98,10 @@ const WeatherDisplay: FC<Props> = ({ weather }) => {
         <div className="mt-2">
           <p className="space-x-2">
             <span className="text-xs">
-              H: {Math.round(weather.main.temp_max)}
-              {unitSymbol}
+              H: {displayTemperature(weather.main.temp_max, measurementSystem)}
             </span>
             <span className="text-xs">
-              L: {Math.round(weather.main.temp_min)}
-              {unitSymbol}
+              L: {displayTemperature(weather.main.temp_min, measurementSystem)}
             </span>
           </p>
         </div>

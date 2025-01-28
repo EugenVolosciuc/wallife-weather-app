@@ -1,1 +1,1 @@
-export type Units = "metric" | "imperial";
+export type MeasurementSystem = "metric" | "imperial";

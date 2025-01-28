@@ -1,5 +1,3 @@
-import { Units } from "./misc";
-
 export interface WeatherData {
   coord: {
     lon: number;
@@ -42,8 +40,4 @@ export interface WeatherData {
   id: number;
   name: string;
   cod: number;
-}
-
-export interface WeatherDataWithUnits extends WeatherData {
-  units: Units;
 }
